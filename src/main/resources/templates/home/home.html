@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" th:href="@{/css/home_style.css}">
+
+    <title>Hackaroni</title>
+</head>
+<body>
+
+<canvas id="snow"></canvas>
+
+<nav class="navbar fade-up">
+    <a href="/" class="navbar__logo">Hackaroni</a>
+    <ul class="navbar__links">
+        <li><a th:href="@{/login}" class="nav-link login-btn">Login</a></li>
+    </ul>
+</nav>
+
+<header class="header fade-up">
+    <h1 class="title">Snowy ChatBot</h1>
+    <p class="subtitle">Warm answers in a cold world :D</p>
+    <a th:href="@{/login}" class="main-btn">Go to Login</a>
+</header>
+
+<section class="features">
+    <div class="feature-card">
+        <i class='bx bx-message-dots feature-icon'></i>
+        <h3>Answer Questions</h3>
+        <p>Ask anything and get clear, helpful answers in seconds.</p>
+    </div>
+
+    <div class="feature-card">
+        <i class='bx bx-task feature-icon'></i>
+        <h3>Help with Tasks</h3>
+        <p>Summaries, explanations, and step-by-step guides on demand.</p>
+    </div>
+
+    <div class="feature-card">
+        <i class='bx bx-bulb feature-icon'></i>
+        <h3>Generate Ideas</h3>
+        <p>Brainstorm new concepts, titles, messages, and more.</p>
+    </div>
+
+    <div class="feature-card">
+        <i class='bx bx-edit-alt feature-icon'></i>
+        <h3>Improve Your Text</h3>
+        <p>Fix grammar, rewrite texts, and make your writing clearer.</p>
+    </div>
+</section>
+
+<script th:src="@{/js/snow.js}"></script>
+</body>
+</html>

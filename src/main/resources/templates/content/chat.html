@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/chat_style.css}">
+    <title>Hackaroni | Chat</title>
+</head>
+<body>
+
+<canvas id="snow"></canvas>
+
+<nav class="navbar">
+    <div class="user-info">
+        <span class="user-name"><i class="bx bx-user"></i> <span th:text="${username}"></span></span>
+        <span class="user-email"><i class="bx bx-envelope"></i> <span th:text="${email}"></span></span>
+    </div>
+
+    <a href="/" class="navbar__logo">Hackaroni</a>
+
+    <form th:action="@{/logout}" method="get">
+        <button class="logout-btn"><i class="bx bx-log-out"></i> Logout</button>
+    </form>
+</nav>
+
+<div class="history-title-island">
+    <h3><i class="bx bx-history"></i> History</h3>
+</div>
+
+<aside class="history-island">
+    <ul id="chat-list"></ul>
+</aside>
+
+<section class="chat-layout fade-up">
+    <div class="chat-container">
+        <div class="messages" id="messages"></div>
+    </div>
+</section>
+
+<div class="new-chat-island">
+    <button class="new-chat-btn" onclick="createNewChat()">
+        <i class="bx bx-plus"></i> New chat
+    </button>
+</div>
+
+<div class="chat-input-island">
+
+    <div id="file-tag"></div>
+
+    <form class="chat-input" enctype="multipart/form-data">
+
+        <button type="button" class="file-btn" onclick="document.getElementById('fileInput').click()">
+            <i class="bx bx-paperclip"></i>
+        </button>
+
+        <input type="file" id="fileInput" name="file" style="display:none" onchange="showFileTag()">
+
+        <input type="text" name="message" placeholder="Write a message..." autocomplete="off">
+
+        <button type="submit" class="send-btn">
+            <i class="bx bx-send"></i>
+        </button>
+
+    </form>
+</div>
+
+<script th:src="@{/js/chat.js}"></script>
+<script th:src="@{/js/snow.js}"></script>
+
+</body>
+</html>
