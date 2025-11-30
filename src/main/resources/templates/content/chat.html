@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,60 +12,81 @@
 <canvas id="snow"></canvas>
 
 <nav class="navbar">
-    <div class="user-info">
-        <span class="user-name"><i class="bx bx-user"></i> <span th:text="${username}"></span></span>
-        <span class="user-email"><i class="bx bx-envelope"></i> <span th:text="${email}"></span></span>
-    </div>
-
     <a href="/" class="navbar__logo">Hackaroni</a>
 
-    <form th:action="@{/logout}" method="get">
-        <button class="logout-btn"><i class="bx bx-log-out"></i> Logout</button>
-    </form>
+    <div class="navbar-actions">
+        <button class="nav-icon-btn" id="profile-btn">
+            <i class="bx bx-cog"></i>
+            <span>Settings</span>
+        </button>
+
+        <div class="profile-dropdown" id="profile-dropdown">
+            <div class="profile-header">
+                <div class="profile-photo"><i class="bx bx-user"></i></div>
+                <div class="profile-info">
+                    <div class="profile-name" th:text="${username}">Username</div>
+                    <div class="profile-email" th:text="${email}">dev@test.com</div>
+                </div>
+            </div>
+            <a href="/logout" class="profile-logout">Log out</a>
+        </div>
+    </div>
 </nav>
 
-<div class="history-title-island">
-    <h3><i class="bx bx-history"></i> History</h3>
-</div>
+<main class="main">
 
-<aside class="history-island">
-    <ul id="chat-list"></ul>
-</aside>
+    <section class="hero">
+        <h1 class="hero-title">Welcome to StudyBot</h1>
+        <p class="hero-subtitle">All your conversations and knowledge in one place</p>
+    </section>
 
-<section class="chat-layout fade-up">
-    <div class="chat-container">
-        <div class="messages" id="messages"></div>
+    <section class="section">
+        <div class="section-header">
+            <h2 class="section-title">Recent chats</h2>
+
+            <div class="section-actions">
+                <button class="chip chip-primary">All</button>
+                <div class="view-toggle">
+                    <button class="icon-toggle icon-toggle-active" id="view-grid-btn"><i class="bx bx-grid-alt"></i></button>
+                    <button class="icon-toggle" id="view-list-btn"><i class="bx bx-list-ul"></i></button>
+                </div>
+                <button class="chip chip-ghost">Latest <i class="bx bx-chevron-down"></i></button>
+
+                <button class="primary-btn primary-btn-glow" onclick="createNewChat()">
+                    <i class="bx bx-plus"></i> Create
+                </button>
+            </div>
+        </div>
+
+        <div class="cards-row" id="chat-cards-wrapper">
+            <div class="card card-create" onclick="createNewChat()">
+                <div class="card-create-icon"><i class="bx bx-plus"></i></div>
+                <div class="card-create-text">Create chat</div>
+            </div>
+
+            <div id="chat-cards"></div>
+        </div>
+    </section>
+
+</main>
+
+<template id="chat-card-template">
+    <div class="card">
+        <div class="card-top">
+            <span class="card-badge">Chat</span>
+        </div>
+        <div class="card-content">
+            <h3 class="card-title"></h3>
+            <p class="card-meta"></p>
+        </div>
+        <div class="card-footer">
+            <span class="card-date"></span>
+            <i class="bx bx-chevron-right"></i>
+        </div>
     </div>
-</section>
+</template>
 
-<div class="new-chat-island">
-    <button class="new-chat-btn" onclick="createNewChat()">
-        <i class="bx bx-plus"></i> New chat
-    </button>
-</div>
-
-<div class="chat-input-island">
-
-    <div id="file-tag"></div>
-
-    <form class="chat-input" enctype="multipart/form-data">
-
-        <button type="button" class="file-btn" onclick="document.getElementById('fileInput').click()">
-            <i class="bx bx-paperclip"></i>
-        </button>
-
-        <input type="file" id="fileInput" name="file" style="display:none" onchange="showFileTag()">
-
-        <input type="text" name="message" placeholder="Write a message..." autocomplete="off">
-
-        <button type="submit" class="send-btn">
-            <i class="bx bx-send"></i>
-        </button>
-
-    </form>
-</div>
-
-<script th:src="@{/js/chat.js}"></script>
+<script th:src="@{/js/chat_list.js}"></script>
 <script th:src="@{/js/snow.js}"></script>
 
 </body>

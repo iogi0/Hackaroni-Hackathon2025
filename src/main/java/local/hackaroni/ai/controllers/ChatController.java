@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class ChatController {
+
     @GetMapping("/chat")
     public String chatPage(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");

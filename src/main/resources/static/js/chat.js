@@ -1,79 +1,94 @@
-const messages = document.getElementById("messages")
-window.currentChatId = 0
+document.addEventListener("DOMContentLoaded", function () {
+    var fileInput = document.getElementById("fileInput");
+    var fileButton = document.getElementById("file-button");
+    var fileTag = document.getElementById("file-tag");
+    var messages = document.getElementById("messages");
+    var messageInput = document.getElementById("message-input");
+    var form = document.querySelector(".chat-input");
 
-loadChatList().then(() => loadHistory())
+    if (fileButton && fileInput) {
+        fileButton.addEventListener("click", function () {
+            fileInput.click();
+        });
 
-async function loadChatList() {
-    let res = await fetch("/api/chat/all")
-    let chats = await res.json()
-    let list = document.getElementById("chat-list")
-    list.innerHTML = ""
-    chats.forEach((chat, i) => {
-        list.innerHTML += `<li class="history-item ${i===0?"active":""}" data-id="${i}" onclick="switchChat(${i})"><i class="bx bx-message-rounded"></i> ${chat.title}</li>`
-    })
-}
+        fileInput.addEventListener("change", function () {
+            if (fileInput.files.length > 0) {
+                fileTag.textContent = fileInput.files[0].name;
+                fileTag.style.display = "block";
+            } else {
+                fileTag.style.display = "none";
+            }
+        });
+    }
 
-async function loadHistory() {
-    let response = await fetch("/api/chat/history?chatId=" + window.currentChatId)
-    let history = await response.json()
-    messages.innerHTML = ""
-    history.forEach(m => {
-        if (m.sender === "user") addUserMessage(m.text)
-        else addBotMessage(m.text)
-    })
-    scrollDown()
-}
+    form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        var text = messageInput.value.trim();
+        var file = fileInput.files[0];
 
-document.querySelector(".chat-input").addEventListener("submit", async e => {
-    e.preventDefault()
+        if (!text && !file) return;
 
-    const textInput = document.querySelector(".chat-input input[name='message']")
-    const fileInput = document.getElementById("fileInput")
+        if (text) appendMessage("user", text);
+        if (file) appendMessage("user", "[FILE] " + file.name);
 
-    let text = textInput.value.trim()
-    let file = fileInput.files[0]
+        scrollDown();
 
-    if (!text && !file) return
+        let data = new FormData();
+        data.append("chatId", window.currentChatId);
+        if (text) data.append("message", text);
+        if (file) data.append("file", file);
 
-    if (text) addUserMessage(text)
-    if (file) addUserMessage("[FILE] " + file.name)
+        messageInput.value = "";
+        fileInput.value = "";
+        fileTag.style.display = "none";
 
-    scrollDown()
+        let r = await fetch("/api/chat/send", { method: "POST", body: data });
+        let botMsg = await r.json();
 
-    let form = new FormData()
-    form.append("chatId", window.currentChatId)
-    if (text) form.append("message", text)
-    if (file) form.append("file", file)
+        appendMessage("bot", botMsg.text);
+        scrollDown();
+    });
 
-    textInput.value = ""
-    fileInput.value = ""
-    document.getElementById("file-tag").style.display = "none"
-    document.body.classList.remove("file-attached")
+    async function loadHistory() {
+        let response = await fetch("/api/chat/history?chatId=" + window.currentChatId);
+        let history = await response.json();
+        messages.innerHTML = "";
+        history.forEach(m => {
+            appendMessage(m.sender, m.text);
+        });
+        scrollDown();
+    }
 
-    let r = await fetch("/api/chat/send", { method: "POST", body: form })
-    let botMsg = await r.json()
+    function appendMessage(role, text) {
+        var wrapper = document.createElement("div");
+        wrapper.className = "message " + role;
+        var p = document.createElement("p");
+        p.textContent = text;
+        wrapper.appendChild(p);
+        messages.appendChild(wrapper);
+    }
 
-    addBotMessage(botMsg.text)
-    scrollDown()
-})
+    function scrollDown() {
+        messages.scrollTop = messages.scrollHeight;
+    }
 
-function addUserMessage(txt) {
-    messages.innerHTML += `<div class="message user"><p>${txt}</p></div>`
-}
+    loadHistory();
+});
 
-function addBotMessage(txt) {
-    messages.innerHTML += `<div class="message bot"><p>${txt}</p></div>`
-}
+const profileBtn = document.getElementById("profile-btn");
+const profileDropdown = document.getElementById("profile-dropdown");
 
-function scrollDown() {
-    messages.scrollTop = messages.scrollHeight
-}
+if (profileBtn && profileDropdown) {
+    profileBtn.addEventListener("click", e => {
+        e.stopPropagation();
+        profileDropdown.classList.toggle("open");
+    });
 
-async function switchChat(id) {
-    window.currentChatId = id
-    await loadHistory()
-    document.querySelectorAll(".history-item").forEach(i => i.classList.remove("active"))
-    document.querySelector(`.history-item[data-id="${id}"]`).classList.add("active")
+    document.addEventListener("click", e => {
+        if (!profileDropdown.contains(e.target) && !profileBtn.contains(e.target)) {
+            profileDropdown.classList.remove("open");
+        }
+    });
 }
 
 function showFileTag() {
@@ -82,17 +97,8 @@ function showFileTag() {
 
     if (input.files.length > 0) {
         tag.textContent = input.files[0].name;
-        tag.style.display = "inline-block";
-        document.body.classList.add("file-attached");
+        tag.style.display = "block";
     } else {
         tag.style.display = "none";
-        document.body.classList.remove("file-attached");
     }
-}
-
-async function createNewChat() {
-    let r = await fetch("/api/chat/new", { method: "POST" })
-    let newId = await r.json()
-    await loadChatList()
-    switchChat(newId)
 }
