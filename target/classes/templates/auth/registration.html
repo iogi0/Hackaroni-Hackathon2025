@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" th:href="@{/css/auth_style.css}">
+    <title>Hackaroni | Registration</title>
+</head>
+<body>
+
+<canvas id="snow"></canvas>
+
+<nav class="navbar">
+    <a href="/" class="navbar__logo">Hackaroni</a>
+    <ul class="navbar__links">
+        <li><a th:href="@{/}" class="nav-link">Back</a></li>
+    </ul>
+</nav>
+
+<section class="login-box fade-up">
+    <h1 class="login-title">Create Account</h1>
+    <p class="login-subtitle">Join the SnowyChat</p>
+
+    <form class="login-form" th:action="@{/registration}" method="post">
+        <div class="input-box">
+            <i class='bx bx-user'></i>
+            <input type="text" name="username" placeholder="Username" required>
+        </div>
+
+        <div class="input-box">
+            <i class='bx bx-envelope'></i>
+            <input type="email" name="email" placeholder="Email" required>
+        </div>
+
+        <div class="input-box">
+            <i class='bx bx-lock-alt'></i>
+            <input type="password" name="password" placeholder="Password" required>
+        </div>
+
+        <button type="submit" class="main-btn login-submit">Registration</button>
+    </form>
+
+    <a href="/login" class="login-register">Already have an account?</a>
+
+</section>
+
+<script th:src="@{/js/snow.js}"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/chat_id_style.css}">
+    <title>Hackaroni | Chat</title>
+</head>
+<body>
+
+<canvas id="snow"></canvas>
+
+<nav class="navbar">
+    <a href="/" class="navbar__logo">Hackaroni</a>
+
+    <div class="navbar-actions">
+        <button class="nav-icon-btn" id="profile-btn">
+            <i class="bx bx-cog"></i>
+            <span>Settings</span>
+        </button>
+
+        <div class="profile-dropdown" id="profile-dropdown">
+            <div class="profile-header">
+                <div class="profile-photo"><i class="bx bx-user"></i></div>
+                <div class="profile-info">
+                    <div class="profile-name" th:text="${username}">Username</div>
+                    <div class="profile-email" th:text="${email}">dev@test.com</div>
+                </div>
+            </div>
+            <a href="/logout" class="profile-logout">Log out</a>
+        </div>
+    </div>
+</nav>
+
+<main class="chat-layout">
+    <div class="chat-container">
+        <div id="messages" class="messages"></div>
+
+        <div class="chat-input-island">
+            <span id="file-tag"></span>
+            <form class="chat-input">
+                <input id="message-input" type="text" name="message" placeholder="Type your message...">
+                <label for="fileInput" class="file-btn" id="file-button">
+                    <i class="bx bx-paperclip"></i>
+                </label>
+                <input type="file" id="fileInput" onchange="showFileTag()">
+                <button type="submit" class="send-btn">
+                    <i class="bx bx-send"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="extra-island"></div>
+</main>
+
+<script th:src="@{/js/chat_id_script.js}"></script>
+<script th:src="@{/js/snow.js}"></script>
+
+</body>
+</html>

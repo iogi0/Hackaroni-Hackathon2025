@@ -1,0 +1,201 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: hsl(220, 70%, 38%);
+    background-image:
+            radial-gradient(at 40% 20%, hsla(210, 80%, 80%, 0.5) 0px, transparent 50%),
+            radial-gradient(at 80% 0%, hsla(215, 70%, 60%, 0.5) 0px, transparent 50%),
+            radial-gradient(at 0% 50%, hsla(220, 90%, 88%, 0.45) 0px, transparent 50%),
+            radial-gradient(at 80% 50%, hsla(220, 60%, 55%, 0.45) 0px, transparent 50%);
+}
+
+#snow {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 15px 30px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(255,255,255,0.18);
+    box-shadow: 0 4px 30px rgba(70,120,255,0.35);
+    z-index: 10;
+}
+
+.navbar__logo {
+    color: #b7dfff;
+    font-size: 24px;
+    font-weight: 700;
+    text-shadow:
+            0 0 12px rgba(120,190,255,1),
+            0 0 28px rgba(90,160,255,1),
+            0 0 55px rgba(70,140,255,0.9);
+}
+
+.navbar__links {
+    display: flex;
+    margin-left: auto;
+    list-style: none;
+}
+
+.nav-link {
+    color: #3270ff;
+    font-size: 18px;
+    padding: 12px 32px;
+    border-radius: 40px;
+    font-weight: 600;
+    text-decoration: none;
+    background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(220,235,255,0.95));
+    border: 2px solid rgba(200,220,255,0.7);
+    box-shadow: 0 0 18px rgba(140,180,255,0.7);
+    transition: 0.25s ease;
+}
+
+.nav-link:hover {
+    box-shadow: 0 0 35px rgba(160,200,255,1);
+    transform: translateY(-5px);
+}
+
+.login-box {
+    width: 420px;
+    padding: 40px;
+    margin-top: -20px;
+    background: rgba(255,255,255,0.22);
+    backdrop-filter: blur(12px);
+    border-radius: 22px;
+    border: 1px solid rgba(255,255,255,0.3);
+    box-shadow: 0 0 30px rgba(160,200,255,0.7);
+    text-align: center;
+
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.8s ease forwards;
+}
+
+.login-title {
+    font-size: 42px;
+    color: #b7dfff;
+    text-shadow:
+            0 0 12px rgba(120,190,255,1),
+            0 0 28px rgba(90,160,255,1);
+}
+
+.login-subtitle {
+    color: #d7ecff;
+    margin-bottom: 25px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.login-form input {
+    padding: 14px;
+    border-radius: 14px;
+    border: none;
+    outline: none;
+    background: rgba(255,255,255,0.8);
+}
+
+.main-btn {
+    padding: 14px 40px;
+    border-radius: 40px;
+    font-size: 18px;
+    font-weight: 600;
+    background: rgba(255,255,255,0.9);
+    color: #3270ff;
+    border: 2px solid rgba(200,220,255,0.7);
+    box-shadow: 0 0 22px rgba(140,180,255,0.7);
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+.main-btn:hover {
+    box-shadow: 0 0 35px rgba(160,200,255,1);
+    transform: translateY(-5px);
+}
+
+.login-register {
+    display: block;
+    margin-top: 15px;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.input-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: rgba(255,255,255,0.8);
+    border-radius: 14px;
+    padding: 0 14px;
+    box-shadow: inset 0 0 12px rgba(255,255,255,0.6);
+}
+
+.input-box i {
+    font-size: 20px;
+    color: #3270ff;
+    text-shadow: 0 0 12px rgba(120,190,255,0.8);
+    margin-right: 10px;
+}
+
+.input-box input {
+    flex: 1;
+    padding: 14px 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 16px;
+    color: #1a1a1a;
+}
+
+.navbar__logo {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.navbar__logo:hover {
+    opacity: 0.85;
+    transform: scale(1.03);
+    transition: 0.2s;
+}
+
+@media (max-width: 480px) {
+    .login-box {
+        width: 90%;
+        padding: 30px;
+        margin-top: 140px;
+    }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

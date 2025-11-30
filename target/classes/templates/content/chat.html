@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/chat_style.css}">
+    <title>Hackaroni | Chat</title>
+</head>
+<body>
+
+<canvas id="snow"></canvas>
+
+<nav class="navbar">
+    <a href="/" class="navbar__logo">Hackaroni</a>
+
+    <div class="navbar-actions">
+        <button class="nav-icon-btn" id="profile-btn">
+            <i class="bx bx-cog"></i>
+            <span>Settings</span>
+        </button>
+
+        <div class="profile-dropdown" id="profile-dropdown">
+            <div class="profile-header">
+                <div class="profile-photo"><i class="bx bx-user"></i></div>
+                <div class="profile-info">
+                    <div class="profile-name" th:text="${username}">Username</div>
+                    <div class="profile-email" th:text="${email}">dev@test.com</div>
+                </div>
+            </div>
+            <a href="/logout" class="profile-logout">Log out</a>
+        </div>
+    </div>
+</nav>
+
+<main class="main">
+
+    <section class="hero">
+        <h1 class="hero-title">Welcome to StudyBot</h1>
+        <p class="hero-subtitle">All your conversations and knowledge in one place</p>
+    </section>
+
+    <section class="section">
+        <div class="section-header">
+            <h2 class="section-title">Recent chats</h2>
+
+            <div class="section-actions">
+                <button class="chip chip-primary">All</button>
+                <div class="view-toggle">
+                    <button class="icon-toggle icon-toggle-active" id="view-grid-btn"><i class="bx bx-grid-alt"></i></button>
+                    <button class="icon-toggle" id="view-list-btn"><i class="bx bx-list-ul"></i></button>
+                </div>
+                <button class="chip chip-ghost">Latest <i class="bx bx-chevron-down"></i></button>
+
+                <button class="primary-btn primary-btn-glow" onclick="createNewChat()">
+                    <i class="bx bx-plus"></i> Create
+                </button>
+            </div>
+        </div>
+
+        <div class="cards-row" id="chat-cards-wrapper">
+            <div class="card card-create" onclick="createNewChat()">
+                <div class="card-create-icon"><i class="bx bx-plus"></i></div>
+                <div class="card-create-text">Create chat</div>
+            </div>
+
+            <div id="chat-cards"></div>
+        </div>
+    </section>
+
+</main>
+
+<template id="chat-card-template">
+    <div class="card">
+        <div class="card-top">
+            <span class="card-badge">Chat</span>
+        </div>
+        <div class="card-content">
+            <h3 class="card-title"></h3>
+            <p class="card-meta"></p>
+        </div>
+        <div class="card-footer">
+            <span class="card-date"></span>
+            <i class="bx bx-chevron-right"></i>
+        </div>
+    </div>
+</template>
+
+<script th:src="@{/js/chat_list.js}"></script>
+<script th:src="@{/js/snow.js}"></script>
+
+</body>
+</html>
