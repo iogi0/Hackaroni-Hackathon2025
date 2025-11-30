@@ -16,6 +16,7 @@ public class ChatController {
 
         model.addAttribute("username", user.getUsername());
         model.addAttribute("email", user.getEmail());
+        model.addAttribute("age", session.getAttribute("age"));
 
         return "content/chat";
     }

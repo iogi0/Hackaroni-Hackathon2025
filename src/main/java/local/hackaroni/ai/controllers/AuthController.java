@@ -30,8 +30,8 @@ public class AuthController {
     }
 
     @PostMapping("/registration")
-    public String register(@RequestParam String username, @RequestParam String email, @RequestParam String password, Model model) {
-        boolean ok = userService.register(new User(username, email, password));
+    public String register(@RequestParam String username, @RequestParam int age, @RequestParam String email, @RequestParam String password, Model model) {
+        boolean ok = userService.register(new User(username,age, email, password));
         if (!ok) {
             model.addAttribute("error", "Username already exists");
             return "auth/registration";
@@ -54,6 +54,7 @@ public class AuthController {
         session.setAttribute("userId", user.getUsername());
         session.setAttribute("username", user.getUsername());
         session.setAttribute("email", user.getEmail());
+        session.setAttribute("age", user.getAge());
 
         return "redirect:/chat";
     }

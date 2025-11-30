@@ -6,6 +6,19 @@
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/chat_id_style.css}">
     <title>Hackaroni | Chat</title>
+
+    <script th:inline="none">
+        window.MathJax = {
+            tex: { inlineMath: [["$", "$"], ["\\(", "\\)"]] },
+            svg: { fontCache: "global" }
+        };
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.7/dist/purify.min.js"></script>
+
 </head>
 <body>
 
@@ -15,26 +28,26 @@
     <a href="/" class="navbar__logo">Hackaroni</a>
 
     <div class="navbar-actions">
-        <button class="nav-icon-btn" id="profile-btn">
-            <i class="bx bx-cog"></i>
-            <span>Settings</span>
-        </button>
+        <div class="nav-user-info">
+            <div class="nav-user-avatar"><i class="bx bx-user"></i></div>
 
-        <div class="profile-dropdown" id="profile-dropdown">
-            <div class="profile-header">
-                <div class="profile-photo"><i class="bx bx-user"></i></div>
-                <div class="profile-info">
-                    <div class="profile-name" th:text="${username}">Username</div>
-                    <div class="profile-email" th:text="${email}">dev@test.com</div>
-                </div>
+            <div class="nav-user-text">
+                <div class="nav-user-name" th:text="${username}">Username</div>
+                <div class="nav-user-email" th:text="${email}">user@mail.com</div>
+                <div class="nav-user-age">Age: <span th:text="${age}">18</span></div>
             </div>
-            <a href="/logout" class="profile-logout">Log out</a>
         </div>
+
+        <a href="/logout" class="logout-btn">
+            <i class="bx bx-log-out"></i>
+        </a>
     </div>
 </nav>
 
+
 <main class="chat-layout">
-    <div class="chat-container">
+
+    <div class="chat-container" id="main-chat">
         <div id="messages" class="messages"></div>
 
         <div class="chat-input-island">
@@ -44,7 +57,7 @@
                 <label for="fileInput" class="file-btn" id="file-button">
                     <i class="bx bx-paperclip"></i>
                 </label>
-                <input type="file" id="fileInput" onchange="showFileTag()">
+                <input type="file" id="fileInput">
                 <button type="submit" class="send-btn">
                     <i class="bx bx-send"></i>
                 </button>
@@ -52,14 +65,30 @@
         </div>
     </div>
 
-    <div class="extra-island"></div>
+    <div class="learning-area">
+        <div class="island-card small-island">
+            <div class="info-card">
+                <h2 class="info-title">Learning Field</h2>
+                <input class="info-input" type="text" id="learning-field" placeholder="Enter learning field">
+            </div>
+        </div>
+
+        <div class="island-card small-island">
+            <div class="info-card">
+                <h2 class="info-title">Details</h2>
+                <input class="info-input" type="text" placeholder="Additional details...">
+            </div>
+        </div>
+    </div>
+
 </main>
 
 <script th:inline="javascript">
     window.currentChatId = [[${chatId}]];
 </script>
+
 <script th:src="@{/js/chat_id_script.js}"></script>
 <script th:src="@{/js/snow.js}"></script>
-<!--11-->
+
 </body>
 </html>

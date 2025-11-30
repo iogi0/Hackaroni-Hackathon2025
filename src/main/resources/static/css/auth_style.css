@@ -12,10 +12,10 @@ body {
     min-height: 100vh;
     background-color: hsl(220, 70%, 38%);
     background-image:
-            radial-gradient(at 40% 20%, hsla(210, 80%, 80%, 0.5) 0px, transparent 50%),
-            radial-gradient(at 80% 0%, hsla(215, 70%, 60%, 0.5) 0px, transparent 50%),
-            radial-gradient(at 0% 50%, hsla(220, 90%, 88%, 0.45) 0px, transparent 50%),
-            radial-gradient(at 80% 50%, hsla(220, 60%, 55%, 0.45) 0px, transparent 50%);
+            radial-gradient(at 40% 20%, hsla(210, 80%, 80%, 0.5), transparent 50%),
+            radial-gradient(at 80% 0%, hsla(215, 70%, 60%, 0.5), transparent 50%),
+            radial-gradient(at 0% 50%, hsla(220, 90%, 88%, 0.45), transparent 50%),
+            radial-gradient(at 80% 50%, hsla(220, 60%, 55%, 0.45), transparent 50%);
 }
 
 #snow {
@@ -48,6 +48,14 @@ body {
             0 0 12px rgba(120,190,255,1),
             0 0 28px rgba(90,160,255,1),
             0 0 55px rgba(70,140,255,0.9);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.navbar__logo:hover {
+    opacity: 0.85;
+    transform: scale(1.03);
+    transition: 0.2s;
 }
 
 .navbar__links {
@@ -84,7 +92,6 @@ body {
     border: 1px solid rgba(255,255,255,0.3);
     box-shadow: 0 0 30px rgba(160,200,255,0.7);
     text-align: center;
-
     opacity: 0;
     transform: translateY(20px);
     animation: fadeUp 0.8s ease forwards;
@@ -109,12 +116,36 @@ body {
     gap: 16px;
 }
 
-.login-form input {
-    padding: 14px;
+.input-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: rgba(255,255,255,0.8);
     border-radius: 14px;
+    padding: 0 14px;
+    box-shadow: inset 0 0 12px rgba(255,255,255,0.6);
+}
+
+.input-box i {
+    font-size: 20px;
+    color: #3270ff;
+    margin-right: 10px;
+}
+
+.input-box input,
+.input-box select {
+    flex: 1;
+    padding: 14px 0;
     border: none;
     outline: none;
-    background: rgba(255,255,255,0.8);
+    background: transparent;
+    font-size: 16px;
+    color: #1a1a1a;
+    appearance: none;
+}
+
+.input-box select {
+    cursor: pointer;
 }
 
 .main-btn {
@@ -141,44 +172,6 @@ body {
     color: white;
     text-decoration: none;
     font-size: 14px;
-}
-
-.input-box {
-    position: relative;
-    display: flex;
-    align-items: center;
-    background: rgba(255,255,255,0.8);
-    border-radius: 14px;
-    padding: 0 14px;
-    box-shadow: inset 0 0 12px rgba(255,255,255,0.6);
-}
-
-.input-box i {
-    font-size: 20px;
-    color: #3270ff;
-    text-shadow: 0 0 12px rgba(120,190,255,0.8);
-    margin-right: 10px;
-}
-
-.input-box input {
-    flex: 1;
-    padding: 14px 0;
-    border: none;
-    outline: none;
-    background: transparent;
-    font-size: 16px;
-    color: #1a1a1a;
-}
-
-.navbar__logo {
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.navbar__logo:hover {
-    opacity: 0.85;
-    transform: scale(1.03);
-    transition: 0.2s;
 }
 
 @media (max-width: 480px) {

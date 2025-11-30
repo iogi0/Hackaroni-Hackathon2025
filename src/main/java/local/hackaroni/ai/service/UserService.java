@@ -11,7 +11,7 @@ public class UserService {
     private final List<User> users = new ArrayList<>();
 
     public UserService() {
-        users.add(new User("dev", "dev@test.com", "1234"));
+        users.add(new User("Artemka", 18, "Artemka@test.com", "1234"));
     }
 
     public boolean register(User user) {

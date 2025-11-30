@@ -1,6 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const profileBtn = document.getElementById("profile-btn")
-    const profileDropdown = document.getElementById("profile-dropdown")
     const messages = document.getElementById("messages")
     const fileInput = document.getElementById("fileInput")
     const fileButton = document.getElementById("file-button")
@@ -8,24 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const messageInput = document.getElementById("message-input")
     const form = document.querySelector(".chat-input")
 
-    if (profileBtn && profileDropdown) {
-        profileBtn.addEventListener("click", e => {
-            e.stopPropagation()
-            profileDropdown.classList.toggle("open")
-        })
-
-        document.addEventListener("click", e => {
-            if (!profileDropdown.contains(e.target) && !profileBtn.contains(e.target)) {
-                profileDropdown.classList.remove("open")
-            }
-        })
-    }
-
     if (fileButton && fileInput) {
-        fileButton.addEventListener("click", () => {
-            fileInput.click()
-        })
-
+        fileButton.addEventListener("click", () => fileInput.click())
         fileInput.addEventListener("change", showFileTag)
     }
 
@@ -37,13 +19,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!text && !file) return
 
-        if (text) appendMessage(messages, "user", text)
-        if (file) appendMessage(messages, "user", "[FILE] " + file.name)
-
+        appendMessage(messages, "user", text || ("[FILE] " + file.name))
         scrollDown(messages)
 
         let formData = new FormData()
         formData.append("chatId", window.currentChatId)
+
         if (text) formData.append("message", text)
         if (file) formData.append("file", file)
 
@@ -51,20 +32,26 @@ document.addEventListener("DOMContentLoaded", () => {
         fileInput.value = ""
         fileTag.style.display = "none"
 
-        let r = await fetch("/api/chat/send", { method: "POST", body: formData })
-        let botMsg = await r.json()
+        let response = await fetch("/api/chat/send", {
+            method: "POST",
+            body: formData
+        })
 
-        appendMessage(messages, "bot", botMsg.text)
+        let botReply = await response.json()
+        let raw = botReply.text || botReply.answer || botReply.intent || "Empty response"
+
+        appendMessage(messages, "bot", raw)
         scrollDown(messages)
     })
 
     async function loadHistory() {
         let response = await fetch("/api/chat/history?chatId=" + window.currentChatId)
         let history = await response.json()
+
         messages.innerHTML = ""
-        history.forEach(m => {
-            appendMessage(messages, m.sender, m.text)
-        })
+
+        history.forEach(m => appendMessage(messages, m.sender, m.text))
+
         scrollDown(messages)
     }
 
@@ -72,14 +59,28 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 function appendMessage(container, role, text) {
-    const wrapper = document.createElement("div")
-    wrapper.className = "message " + role
-    const p = document.createElement("p")
-    p.textContent = text
-    wrapper.appendChild(p)
-    container.appendChild(wrapper)
+    const wrapper = document.createElement("div");
+    wrapper.className = "message " + role;
+
+    const bubble = document.createElement("div");
+    bubble.className = "msg-content";
+
+    if (role === "bot" && window.marked && window.DOMPurify) {
+        let html = marked.parse(text);
+        bubble.innerHTML = DOMPurify.sanitize(html);
+
+        if (window.MathJax && MathJax.typesetPromise) {
+            MathJax.typesetPromise();
+        }
+    } else {
+        bubble.textContent = text;
+    }
+
+    wrapper.appendChild(bubble);
+    container.appendChild(wrapper);
 }
-//1
+
+
 function scrollDown(container) {
     container.scrollTop = container.scrollHeight
 }

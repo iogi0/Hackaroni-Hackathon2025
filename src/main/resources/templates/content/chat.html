@@ -9,6 +9,7 @@
 </head>
 <body>
 
+
 <canvas id="snow"></canvas>
  <!--11-->
 <nav class="navbar">
@@ -26,10 +27,13 @@
                 <div class="profile-info">
                     <div class="profile-name" th:text="${username}">Username</div>
                     <div class="profile-email" th:text="${email}">dev@test.com</div>
+                    <div class="profile-age">Age: <span th:text="${age}">18</span></div>
                 </div>
             </div>
+
             <a href="/logout" class="profile-logout">Log out</a>
         </div>
+
     </div>
 </nav>
 

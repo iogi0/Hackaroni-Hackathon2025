@@ -18,6 +18,7 @@ public class ChatIdController {
 
         model.addAttribute("username", user.getUsername());
         model.addAttribute("email", user.getEmail());
+        model.addAttribute("age", session.getAttribute("age"));
         model.addAttribute("chatId", chatId);
 
         return "content/chat_id";
