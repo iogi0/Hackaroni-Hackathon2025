@@ -55,8 +55,11 @@
     <div class="extra-island"></div>
 </main>
 
+<script th:inline="javascript">
+    window.currentChatId = [[${chatId}]];
+</script>
 <script th:src="@{/js/chat_id_script.js}"></script>
 <script th:src="@{/js/snow.js}"></script>
-
+<!--11-->
 </body>
 </html>

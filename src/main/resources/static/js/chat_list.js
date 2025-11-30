@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
-
+     //1
     loadChatCards();
 });
 

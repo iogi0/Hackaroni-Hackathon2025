@@ -7,6 +7,7 @@ public class ChatMessage {
 
     public ChatMessage() {}
 
+
     public ChatMessage(String sender, String text){
         this.sender = sender;
         this.text = text;

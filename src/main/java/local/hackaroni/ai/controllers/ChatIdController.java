@@ -15,6 +15,7 @@ public class ChatIdController {
         User user = (User) session.getAttribute("user");
         if (user == null) return "redirect:/login";
 
+
         model.addAttribute("username", user.getUsername());
         model.addAttribute("email", user.getEmail());
         model.addAttribute("chatId", chatId);

@@ -12,6 +12,7 @@ public class Chat {
         this.title = title;
     }
 
+
     public String getTitle() { return title; }
     public List<ChatMessage> getMessages() { return messages; }
 }

@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
         fileButton.addEventListener("click", function () {
             fileInput.click();
         });
-
+//1
         fileInput.addEventListener("change", function () {
             if (fileInput.files.length > 0) {
                 fileTag.textContent = fileInput.files[0].name;

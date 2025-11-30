@@ -8,7 +8,6 @@ import java.util.List;
 
 @Service
 public class UserService {
-
     private final List<User> users = new ArrayList<>();
 
     public UserService() {

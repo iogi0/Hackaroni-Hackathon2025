@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
+
     @GetMapping("/")
     public String homePage(HttpSession session) {
         User user = (User) session.getAttribute("user");

@@ -79,7 +79,6 @@ function appendMessage(container, role, text) {
     wrapper.appendChild(p)
     container.appendChild(wrapper)
 }
-
 function scrollDown(container) {
     container.scrollTop = container.scrollHeight
 }

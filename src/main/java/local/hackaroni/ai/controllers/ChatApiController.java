@@ -34,7 +34,6 @@ public class ChatApiController {
         chats.add(new Chat("Chat " + chats.size()));
         return chats.size() - 1;
     }
-
     @PostMapping(value = "/send", consumes = "multipart/form-data")
     public ChatMessage sendMessage(@RequestParam(required = false) String message, @RequestParam(required = false) MultipartFile file, @RequestParam int chatId, HttpSession session) throws IOException {
         String userId = (String) session.getAttribute("userId");
